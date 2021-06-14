@@ -1,35 +1,25 @@
 import React from 'react'
-import { Image, ScrollView, Text, View, StyleSheet } from 'react-native';
+import { Image, ScrollView, Text, View, StyleSheet, ImageBackground } from 'react-native';
 import {Icon} from 'react-native-elements'
 import { Button, Divider, Input } from 'react-native-elements'
 import { palette } from '../../../styles/theme'
+import { useNavigation } from '@react-navigation/native'
+import ButtonGradient from '../../ui/ButtonGradient'
+import {styles} from './styles'
 
-const styles  = StyleSheet.create({
-  logo:{
-    width: "100%",
-    height:150,
-    marginTop: 20
-  },
-  divider:{
-    backgroundColor: palette.primary.light,
-    margin: 40
-  },
-  viewContainer:{
-    margin: 40
-  },
-  registerText:{
-    textAlign: 'center',
-    margin: '40px 0'
-  }
-})
+
 const CreateAccount = ()=>{
+  const navigation = useNavigation()
   return(
 
-  <View style={styles.registerText}>
-    <Text>
+  <View >
+    <Text style={styles.registerText}>
       ¿Aún no tienes una cuenta?{" "}
     </Text>
-    <Text>
+    <Text
+      style={styles.registerTextLink}
+      onPress={()=>navigation.navigate("Register")}
+    >
       Registrate
     </Text>
 
@@ -37,8 +27,10 @@ const CreateAccount = ()=>{
   )
 }
 const Login = ()=>{
+  const navigation = useNavigation()
   return(
     <ScrollView>
+      <ImageBackground source={require("../../../assets/bg.png")} style={styles.ImageBackground}>
       <Image
       source={require("../../../assets/library/logo1.png")}
       resizeMode="contain"
@@ -75,18 +67,15 @@ const Login = ()=>{
         />
 
 
-        <Button
+        <ButtonGradient
           title="Login"
-          onPress={()=>{
-            return(
-              navigation.navigate("Login")
-            )
-          }}
+          onPress={()=>navigation.navigate("Login")}
         />
 
         <CreateAccount/>
       </View>
       <Divider style={styles.divider}/>
+      </ImageBackground>
     </ScrollView>
   )
 }

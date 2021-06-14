@@ -8,7 +8,7 @@ const Stack = createStackNavigator()
 
 const style = {
   headerStyle: styles.header,
-  headerTitleStyle: styles.title
+  headerTitleStyle: styles.title,
 }
 const AccountStack = ()=>{
   return(
