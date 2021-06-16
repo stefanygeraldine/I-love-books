@@ -16,7 +16,7 @@ const Account = ()=>{
     })
   }, [])
 
-if(login === null) return  <Loading isVisible={true} text="Cargando"/>
+if(login === null) return  <Loading isVisible={true}/>
 return login ?  <UserLogged/> : <UserGuest/>
 
 }

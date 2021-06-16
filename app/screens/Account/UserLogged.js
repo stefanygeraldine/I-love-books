@@ -1,17 +1,24 @@
-import React from 'react'
-import {View, Text} from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { View, Text, ScrollView, StyleSheet } from 'react-native'
 import firebase from 'firebase'
 import ButtonGradient from '../../ui/ButtonGradient'
+import InfoUser from '../../components/account/InfoUser'
 
 const UserLogged = ()=>{
+  const [userInfo, setUserInfo] = useState(null)
+  useEffect(()=>{
+    (async ()=>{
+      const user = await firebase.auth().currentUser
+      setUserInfo(user)
+    })()
+  }, [])
   return(
-    <View>
-      <ButtonGradient
-        title="Sign Out"
-        onPress={()=>{firebase.auth().signOut()}}
-      />
-      <Text>Sign Out</Text>
-    </View>
+    <ScrollView>
+      {userInfo &&
+        <InfoUser user={userInfo}/>
+      }
+
+    </ScrollView>
   )
 }
 

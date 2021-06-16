@@ -1,48 +1,64 @@
 import React from "react";
-import { ActivityIndicator, View, StyleSheet, Image} from "react-native";
+import { ActivityIndicator, View, StyleSheet, Image, ImageBackground, ScrollView } from 'react-native';
 import {Overlay} from 'react-native-elements'
 import {palette} from "../../styles/theme";
 
 const styles = StyleSheet.create({
-  overlay: {
-    height: '100%',
-    width: '100%',
 
-    borderColor: palette.primary.main,
-    borderWidth: 2,
-  },
   view:{
-   // flex: 1,
+    display:'flex',
     alignItems: "center",
     justifyContent: "center",
-    borderColor: palette.primary.main,
-    borderWidth: 2,
-    width: 200,
-    height: 200,
-    borderRadius: 200,
-    overflow: 'hidden'
+    borderWidth: 0,
+    height: '100%',
+    width: '100%',
+    overflow: 'hidden',
+    backgroundColor:'transparent'
   },
   image:{
-    height: 300,
-    width: 300,
-    position: 'relative'
+    height: 100,
+    width: 100,
+    position: 'relative',
+    backgroundColor:'transparent',
+    zIndex: 4
   },
+  ImageBackground:{
+    padding: 0,
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    top:0,
+    opacity: 0.5,
+  },
+  overlay:{
+    position: 'absolute',
+    top:0,
+    left:0,
+    width: '100%',
+    height: '100%',
+    zIndex:2
+  }
 })
 const Loading = ({isVisible, text})=>{
 
 
 
   return(
-    <Overlay isVisible={isVisible} style={styles.overlay}>
-      <View style={styles.view}>
-        <Image
-          style={styles.image}
-          source={require("../../assets/library/loading.gif")}
-          resizeMode="contain"
-        />
+    isVisible ?
+      <View style={styles.overlay}>
+        <ImageBackground source={require("../../assets/bg.png")} style={styles.ImageBackground}/>
+        <View style={styles.view}>
+          <Image
+            style={styles.image}
+            source={require("../../assets/library/loading.gif")}
+            resizeMode="contain"
+          />
+        </View>
+
       </View>
-    </Overlay>
+      : null
   )
+
 }
 
 export default Loading

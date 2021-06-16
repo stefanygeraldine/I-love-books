@@ -3,10 +3,7 @@ import { palette } from '../../../styles/theme'
 
 
 export const styles = StyleSheet.create({
-  viewBody:{
-    paddingBottom: 0
 
-  },
   ImageBackground:{
     padding: 0,
     width: '100%',
@@ -74,13 +71,6 @@ export const styles = StyleSheet.create({
     fontSize:17,
     margin: 0,
     color: palette.primary.main,
-    fontWeight:'bold'
-  },
-  errorMessage:{
-    fontSize:17,
-    margin: 10,
-    textAlign:'center',
-    color: palette.common.error,
     fontWeight:'bold'
   }
 })

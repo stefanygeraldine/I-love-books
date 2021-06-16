@@ -14,7 +14,7 @@ export const palette = {
     dark:'#f5a447',
   },
   common:{
-    error: '#ff0000'
+    error: '#ff0361'
   }
 }
 

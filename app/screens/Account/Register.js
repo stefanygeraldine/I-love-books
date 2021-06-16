@@ -7,10 +7,13 @@ import {styles} from './styles'
 import ButtonGradient from '../../ui/ButtonGradient'
 import { palette } from '../../../styles/theme'
 import { useNavigation } from '@react-navigation/native'
+import Loading from '../../components/Loading'
+import Toast from '../../ui/Toast'
 
 const Register = () => {
   const [formData, setFormData] = useState({})
   const [errorMessage, setErrorMessage] = useState(null)
+  const [loading, setLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const [showRepeatPassword, setShowRepeatPassword] = useState(false)
   const navigation = useNavigation()
@@ -41,20 +44,25 @@ const Register = () => {
   const sendData= ()=>{
     const isValidData = validateData()
     const {email, password} = formData
+
     if(isValidData){
+      setLoading(true)
       firebase
         .auth()
         .createUserWithEmailAndPassword(email, password)
         .then(response=>{
           console.log(response)
+          setLoading(false)
           navigation.navigate("Account")
         })
         .catch(error=>{
+          setLoading(false)
           console.log(error)
         })
     }
   }
   const setData = (field, value)=>{
+    setErrorMessage(null)
     setFormData((oldValues)=>{
       return(
         {
@@ -66,6 +74,7 @@ const Register = () => {
   }
   return (
     <ScrollView >
+       <Loading isVisible={loading}/>
       <ImageBackground source={require("../../../assets/bg.png")} style={styles.ImageBackground}>
         <Image
           style={styles.logo}
@@ -140,23 +149,17 @@ const Register = () => {
                 color={palette.primary.main}
               />
             }
-
-
           />
-       {/*   <SnackBar
-            visible={!!errorMessage}
-            textMessage={errorMessage}
-            actionHandler={()=>{setErrorMessage(null)}}
-            actionText="ok"
-          />*/}
+          <Toast open={!!errorMessage} message={errorMessage}/>
           <ButtonGradient
             title="Unirse"
             onPress={()=>{sendData()}}
           />
-          <Text style={styles.errorMessage}>{errorMessage}</Text>
+
 
         </View>
       </ImageBackground>
+
     </ScrollView>
   );
 };
